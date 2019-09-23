@@ -21,3 +21,4 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     Takes first N popular words
     """
     pass
+Print
