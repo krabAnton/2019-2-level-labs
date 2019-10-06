@@ -38,7 +38,7 @@ def calculate_frequences(text: str) -> dict:
 
     return frequencies
 
-frequencies = calculate (text) 
+
     
 
 def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
@@ -56,7 +56,7 @@ def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
 
     return d_clean  
 
-filter_stop_words (frequencies, stop_words)
+
 
 def get_top_n(frequencies: dict, top_n: int) -> tuple:
     "if type(frequencies) != dict or type(top_n) != int:
@@ -93,5 +93,5 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
 
     return answer 
 
-get_top_n (frequencies, top_n) 
+
 python -m unittest discover -p "*_test.py" -s .
