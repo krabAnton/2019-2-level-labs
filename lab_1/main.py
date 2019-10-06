@@ -94,3 +94,4 @@ def get_top_n(frequencies: dict, top_n: int) -> tuple:
     return answer 
 
 get_top_n (frequencies, top_n) 
+python -m unittest discover -p "*_test.py" -s .
