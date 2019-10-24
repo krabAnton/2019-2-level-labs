@@ -5,52 +5,91 @@ Count frequencies dictionary by the given arbitrary text
 
 
 def calculate_frequences(text: str) -> dict:
-    if type(text) != str:
-        return {}
+    """
+    Calculates number of times each word appears in the text
+    """
     frequencies = {}
-    text = text.lower()
-    text = text.replace('\n', ' ')
-    illigal_signs = '1234567890^%~|[]<>{}@#&*-+=()_₽$€¥£¢:;/?!`÷×§¶°¬¡¿™®©'
-    for i in text:
-        if i in illigal_signs or i.isalpha() == False and i != ' ':
-            text = text.replace(i, '')
-    text = text.split()
-    for i in text:
-        frequencies[i] = 0
-    for i in frequencies:
-        for k in text:
-            if i == k:
-               frequencies[i] = frequencies.get(i, 0) + 1
+    new_text = ''
+    if text is None:
+        return frequencies
+    if not isinstance(text, str):
+        text = str(text)
+    for symbol in text:
+        if symbol.isalpha() or symbol == ' ':
+            new_text += symbol
+    new_text = new_text.lower()
+    words = new_text.split()
+    for key in words:
+        key = key.lower()
+        if key in frequencies:
+            value = frequencies[key]
+            frequencies[key] = value + 1
+        else:
+            frequencies[key] = 1
     return frequencies
 
-def filter_stop_words(frequencies: dict, stop_words: tuple):
-    if type(frequencies) != dict or type(stop_words) != tuple:
-        return {}
-    else:
-        d_clean = {}
-        for k, v in frequencies.items():
-            if k not in stop_words and type(k) == str:
-                d_clean[k] = v
-        return d_clean
 
-def get_top_n(frequencies: dict, top_n: int):
-    if type(frequencies) != dict or type(top_n) != int or top_n <= 0 :
-        return ()
-    answer = ()
-    if len(frequencies) < top_n:
-        print('В словаре только', len(frequencies), 'записей')
-    freqsorted = sorted(frequencies.items(), key=lambda item: item[1], reverse = True)
-    d_cleansort = {}
-    for k, v in freqsorted:
-        d_cleansort[k] = v
-    m = 0
-    for k, v in d_cleansort.items():
-        if m != top_n:
-            answer += (k, )
-        else:
+def filter_stop_words(frequencies: dict, stop_words: tuple) -> dict:
+    """
+    Removes all stop words from the given frequencies dictionary
+    """
+    if frequencies is None:
+        frequencies = {}
+        return frequencies
+    for word in list(frequencies):
+        if not isinstance(word, str):
+            del frequencies[word]
+    if not isinstance(stop_words, tuple):
+        return frequencies
+    for word in stop_words:
+        if not isinstance(word, str):
+            continue
+        if frequencies.get(word) is not None:
+            del frequencies[word]
+    return frequencies
+
+
+def get_top_n(frequencies: dict, top_n: int) -> tuple:
+    """
+    Takes first N popular words
+    :param
+    """
+    if not isinstance(top_n, int):
+        frequencies = ()
+        return frequencies
+    if top_n < 0:
+        top_n = 0
+    elif top_n > len(frequencies):
+        top_n = len(frequencies)
+    top_words = sorted(frequencies, key=lambda x: int(frequencies[x]), reverse=True)
+    best = tuple(top_words[:top_n])
+    return best
+
+
+def read_from_file(path_to_file: str, lines_limit: int) -> str:
+    """
+    Read text from file
+    """
+    file = open(path_to_file)
+    counter = 0
+    text = ''
+    if file is None:
+        return text
+    for line in file:
+        text += line
+        counter += 1
+        if counter == lines_limit:
             break
-        m += 1
-    return answer 
+    file.close()
+    return text
 
 
-
+def write_to_file(path_to_file: str, content: tuple):
+    """
+    Creates new file
+    """
+    file = open(path_to_file, 'w')
+    for i in content:
+        file.write(i)
+        file.write('\n')
+    file.close()
