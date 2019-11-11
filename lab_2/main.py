@@ -4,7 +4,7 @@ Labour work #2. Levenshtein distance.
 
 
 def generate_edit_matrix(num_rows: int, num_cols: int) -> list:
-    pass
+    
 
 
 def initialize_edit_matrix(edit_matrix: tuple, add_weight: int, remove_weight: int) -> list:
