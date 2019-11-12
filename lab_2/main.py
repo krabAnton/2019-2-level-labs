@@ -23,8 +23,6 @@ def initialize_edit_matrix(edit_matrix: tuple, add_weight: int, remove_weight: i
             edit_matrix[0][j] = edit_matrix[0][j - 1] + add_weight
             j += 1
         return list(edit_matrix)
-    else:
-        return list(edit_matrix)
 
 
 def minimum_value(numbers: tuple) -> int:
@@ -55,8 +53,8 @@ def fill_edit_matrix(edit_matrix: tuple,
 
                 edit_matrix[i][j] = minimum_value((remove, add, subst))
         return list(edit_matrix)
-    else:
-        return list(edit_matrix)
+    
+
 def find_distance(original_word: str,
                   target_word: str,
                   add_weight: int,
