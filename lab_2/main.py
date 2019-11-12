@@ -4,14 +4,16 @@ Labour work #2. Levenshtein distance.
 
 
 def generate_edit_matrix(num_rows: int, num_cols: int) -> list:
-    if type(num_cols) == int and type(num_rows) == int:
+    if isinstance(num_cols, int) and isinstance(num_rows, int):
         edit_matrix = [[0 for j in range(num_cols)] for i in range(num_rows)]
-        return edit_matrix
     else:
-        return []
+        edit_matrix = [] 
+    return edit_matrix 
+
+
 
 def initialize_edit_matrix(edit_matrix: tuple, add_weight: int, remove_weight: int) -> list:
-    if type(add_weight) == int and type(remove_weight) == int and edit_matrix and edit_matrix[0]:
+    if isinstance(add_weight, int) and isinstance(remove_weight, int) and edit_matrix and edit_matrix[0]:
         i = 0
         j = 0
         for cols in edit_matrix:
@@ -35,7 +37,7 @@ def fill_edit_matrix(edit_matrix: tuple,
                      substitute_weight: int,
                      original_word: str,
                      target_word: str) -> list:
-    if type(add_weight) == int and type(remove_weight) == int and type(substitute_weight) == int and type(original_word) == str and type(target_word) == str:
+    if isinstance(add weight, int) and isinstance(remove_weight, int) and isinstance(substitute_weight, int) and isinstance(original_word, str) and isinstance(target_word, str):
         remove = 0
         add = 0
         sub = 0
@@ -60,7 +62,7 @@ def find_distance(original_word: str,
                   add_weight: int,
                   remove_weight: int,
                   substitute_weight: int) -> int:
-    if type(add_weight) == int and type(remove_weight) == int and type(substitute_weight) and type(original_word) == str and type(target_word) == str and substitute_weight != None:
+    if isinstance(add_weight, int) and isinstance(remove_weight, int) and isinstance(substitute_weight, int) and isinstance(original_word, str) and isinstance(target_word, str) and substitute_weight != None:
         num_rows = len(original_word) + 1
         num_cols = len(target_word) + 1
         edit_matrix = generate_edit_matrix(num_rows, num_cols)
