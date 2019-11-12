@@ -37,7 +37,7 @@ def fill_edit_matrix(edit_matrix: tuple,
                      substitute_weight: int,
                      original_word: str,
                      target_word: str) -> list:
-    if isinstance(add weight, int) and isinstance(remove_weight, int) and isinstance(substitute_weight, int) and isinstance(original_word, str) and isinstance(target_word, str):
+    if isinstance(add_weight, int) and isinstance(remove_weight, int) and isinstance(substitute_weight, int) and isinstance(original_word, str) and isinstance(target_word, str):
         remove = 0
         add = 0
         sub = 0
