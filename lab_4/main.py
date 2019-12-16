@@ -73,7 +73,7 @@ class TfIdfCalculator:
                         if word in te:
                             word_in_text += 1
                     self.idf_values[word] = math.log(actual_docs / word_in_text)
-
+                    
     def calculate(self):
         if not self.idf_values or not self.tf_values:
             return
@@ -82,8 +82,7 @@ class TfIdfCalculator:
             for word, value in t.items():
                 tf_idf[word] = value * self.idf_values[word]
             self.tf_idf_values.append(tf_idf)
-        print(self.tf_idf_values)
-
+       
     def report_on(self, word, document_index):
         report = ()
         if document_index >= len(self.corpus) or not self.tf_idf_values:
