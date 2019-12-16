@@ -5,24 +5,95 @@ REFERENCE_TEXTS = []
 
 
 def clean_tokenize_corpus(texts: list) -> list:
-    pass
+    corpus = []
+    if not isinstance(texts, list):
+        return corpus
+    illegal_signs = "1234567890^%~|[]<>{}@#&*-.,'+=()_₽$€¥£¢':;/?!`÷×§¶°¬¡¿™®©"
+    for t in texts:
+        if not isinstance(t, str):
+            continue
+        t = t.lower()
+        t = t.replace('\n', ' ')
+        t = t.replace('<br />', ' ')
+        for sym in t:
+            if sym in illegal_signs:
+                t = t.replace(sym, '')
+        while '  ' in t:
+            t = t.replace('  ', ' ')
+        t = t.split()
+        corpus.append(t)
+    return (corpus)
 
 
 class TfIdfCalculator:
     def __init__(self, corpus):
-        pass
+        self.corpus = corpus
+        self.tf_values = []
+        self.idf_values = {}
+        self.tf_idf_values = []
+        self.file_names = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
 
     def calculate_tf(self):
-        pass
+        if not isinstance(self.corpus, list):
+            return
+        for t in self.corpus:
+            if not isinstance(t, list):
+                continue
+            actual_words = len(t)
+            for word in t:
+                if not isinstance(word, str):
+                    actual_words -= 1
+            tf = {}
+            for word in t:
+                if not isinstance(word, str):
+                    continue
+                if word not in tf:
+                    tf[word] = t.count(word) / actual_words
+            if tf:
+                self.tf_values.append(tf)
 
     def calculate_idf(self):
-        pass
+        if not isinstance(self.corpus, list):
+            return
+        actual_docs = len(self.corpus)
+        for t in self.corpus:
+            if not isinstance(t, list):
+                actual_docs -= 1
+        for t in self.corpus:
+            if not isinstance(t, list) or t is None:
+                continue
+            for word in t:
+                if not isinstance(word, str):
+                    continue
+                if word not in self.idf_values:
+                    word_in_text = 0
+                    for te in self.corpus:
+                        if not isinstance(te, list):
+                            continue
+                        if word in te:
+                            word_in_text += 1
+                    self.idf_values[word] = math.log(actual_docs / word_in_text)
 
     def calculate(self):
-        pass
+        if not self.idf_values or not self.tf_values:
+            return
+        for t in self.tf_values:
+            tf_idf = {}
+            for word, value in t.items():
+                tf_idf[word] = value * self.idf_values[word]
+            self.tf_idf_values.append(tf_idf)
+        print(self.tf_idf_values)
 
     def report_on(self, word, document_index):
-        pass
+        report = ()
+        if document_index >= len(self.corpus) or not self.tf_idf_values:
+            return report
+        tf_idf = self.tf_idf_values[document_index][word]
+        rating = sorted(self.tf_idf_values[document_index], key=lambda v: int(self.tf_idf_values[document_index][v]),
+                        reverse=True)
+        place = rating.index(word)
+        report = (tf_idf, place)
+        return report
 
 
 if __name__ == '__main__':
