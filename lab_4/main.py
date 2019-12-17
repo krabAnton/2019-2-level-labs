@@ -94,7 +94,34 @@ class TfIdfCalculator:
         report = (tf_idf, place)
         return report
 
+    
+        def dump_report_csv(self):
+        file = open('file.csv', 'w')
+        headline = 'word'
+        for name in self.file_names:
+            headline += ', tf_{}'.format(name)
+        headline += 'IDF'
+        for name in self.file_names:
+            headline += ', tf-idf_{}'.format(name)
+        print (headline) 
+        for text in self.corpus:
+            for word in text:
+                word_line = '\n'
+                word_line += word
+                for dic in self.tf_values:
+                    if word in dic:
+                        word_line += ', ' + str(round(dic[word], 3))
+                    else:
+                        word_line += ', 0'
+                word_line += ', ' + str(round(self.idf_values[word], 3))
+                for di in self.tf_idf_values:
+                    if word in di:
+                        word_line += ', ' + str(round(di[word], 3))
+                    else:
+                        word_line += ', 0'
+                file.write(word_line)
 
+                
 if __name__ == '__main__':
     texts = ['5_7.txt', '15_2.txt', '10547_3.txt', '12230_7.txt']
     for text in texts:
