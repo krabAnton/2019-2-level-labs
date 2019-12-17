@@ -55,10 +55,6 @@ def fill_edit_matrix(edit_matrix: tuple,
             edit_matrix[i][j] = minimum_value((first_var, second_var, third_var))
     return edit_matrix
 
-                edit_matrix[i][j] = minimum_value((remove, add, subst))
-    return list(edit_matrix)
-    
-
 def find_distance(original_word: str,
                   target_word: str,
                   add_weight: int,
