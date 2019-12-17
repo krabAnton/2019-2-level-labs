@@ -95,7 +95,7 @@ class TfIdfCalculator:
         return report
 
     
-        def dump_report_csv(self):
+    def dump_report_csv(self):
         file = open('file.csv', 'w')
         headline = 'word'
         for name in self.file_names:
@@ -103,7 +103,7 @@ class TfIdfCalculator:
         headline += 'IDF'
         for name in self.file_names:
             headline += ', tf-idf_{}'.format(name)
-        print (headline) 
+        print (headline)
         for text in self.corpus:
             for word in text:
                 word_line = '\n'
@@ -119,7 +119,8 @@ class TfIdfCalculator:
                         word_line += ', ' + str(round(di[word], 3))
                     else:
                         word_line += ', 0'
-                file.write(word_line)
+                file.write(word_line)    
+        
 
                 
 if __name__ == '__main__':
